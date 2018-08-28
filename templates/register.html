@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/static/css/edmure.css"/>
+    <link rel="stylesheet" href="/static/css/commons.css"/>
+    <link rel="stylesheet" href="/static/css/account.css"/>
+    <style>
+
+    </style>
+</head>
+<body background="/static/img/back.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%; background-attachment:fixed;">
+<div class="register">
+    <div style="font-size: 25px; font-weight: bold;text-align: center;">
+        用户注册
+    </div>
+    <form role="form" action="/register/" method="post" id="form-register">
+       {% csrf_token %}
+        <div class="form-group">
+            <label for="username">用户名</label>
+            <p>{{ obj.username }}
+            {{ obj.errors.username.0 }}</p>
+        </div>
+        <div class="form-group">
+            <label for="email">姓名</label>
+{#            <input type="email" class="form-control" name="email" id="email" placeholder="请输入邮箱">#}
+           <p>{{ obj.realname }}
+                {{ obj.errors.realname.0 }}</p>
+        </div>
+        <div class="form-group">
+            <label for="password">密码</label>
+{#            <input type="password" name="password" class="form-control" id="password1" placeholder="请输入密码">#}
+            {{ obj.password }}
+            {{ obj.errors.password.0 }}
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">确认密码</label>
+{#            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="请重新输入密码">#}
+        {{ obj.confirm_password }}
+            {{ obj.errors.confirm_password.0 }}
+        </div>
+
+        <div class="form-group">
+            <label for="password">验证码</label>
+
+            <div class="row">
+                <div class="col-xs-7">
+                    <input type="text" class="form-control" id="password" name="check_code" placeholder="请输入验证码">
+                </div>
+                <div class="col-xs-5">
+                    <img src="/check_code.html">
+                </div>
+                 <div> {{ er }}</div>
+            </div>
+
+        </div>
+
+        <input type="submit" class="btn btn-default" value="下一步"/>
+        <input type="button" onclick="fanhui();" style="position: relative;left: 170px;" class="btn btn-default" value="返回登录"/>
+    </form>
+
+</div>
+</body>
+{{ s|safe }}
+<script>
+   function fanhui() {
+       location.href='/login/';
+
+   }
+
+</script>
+</html>

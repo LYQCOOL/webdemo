@@ -1,0 +1,62 @@
+{%  extends 'base.html' %}
+
+{% block style %}
+ .active{
+    color:#5bc0de;
+    font-size:20px;}
+     .left-01 {
+           float: left;
+           background-color:#c1e2b3 ;
+           width: 200px;
+           height: 200px;
+       }
+       .right-01 {
+           float: right;
+           background-color: wheat;
+           width: 200px;
+           height: 200px;
+       }
+       .middle-01 {
+           margin: 20px 200px 0 150px;
+           background-color: #fff9ca;
+           height: 200px;
+       }
+{% endblock %}
+{%block content %}
+    {% if orders %}
+        {% for row in orders %}
+        <div>
+       <div class="left-01" ><label class="active">操作时间：</label> <div class="active">{{ row.date|date:'Y-h-d H:m:s' }}</div></div>
+        <center>
+       <div class="right-01">
+             <label class="active" style="margin-top: 40px;">订单状态：</label>
+            <div class="active">
+                 {% if row.status == 0 %}
+                  已付款
+                {% elif row.status == 1 %}
+                 待付款
+                {% else  %}
+                已取消
+                {% endif %}
+
+            </div>
+
+         </div>
+        </center>
+       <div class="middle-01"><p id="d_1"> <label class="active" >商品名称：</label> {{ row.goods.shangpinmingchen }}</p>
+
+           <p>
+               <label  class="active">商品价格：</label>{{ row.goods.shangpinjiage }} </p>
+               <p>
+               <label  class="active">商品简介：</label>{{ row.goods.shangpinshuoming }}</p>
+           <p><label  class="active">数量：</label>{{row.number}}</p>
+       </div>
+        {% endfor %}
+   </div>
+    {% else %}
+        <center>
+    <h1 style="color: #5bc0de;">你还没有账单！！！</h1>
+        </center>
+    {% endif %}
+
+{% endblock %}

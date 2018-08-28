@@ -1,0 +1,154 @@
+{% extends  'base.html' %}
+{% block style %}
+    .active{
+    color:#5bc0de;
+    font-size:20px;}
+
+ .left-01 {
+           float: left;
+           background-color:yellow;
+           width: 200px;
+           height: 200px;
+       }
+       .right-01 {
+           float: right;
+           background-color: wheat;
+           width: 200px;
+           height: 200px;
+       }
+       .middle-01 {
+           margin: 20px 200px 0 150px;
+           background-color: #fff9ca;
+           height: 200px;
+       }
+{% endblock %}
+{%block content%}<center>
+    <h1 style="color: #5bc0de">{{ error }}</h1>
+    </center>
+
+    {% for row in obj %}
+{#        <div style="display: none" class="thing_id">{{ row.id }}&#8194</div>#}
+   <div>
+       <div class="left-01"> <img class="left-01" src="{{ row.goods.shangpintupian }}"></div>
+<center>
+       <div class="right-01">
+         <div>
+               <p style="margin-top: 30px;"><label class="active">购买数量</label> <button style="width: 20px;;background-color: #FFEEC2;color: #5bc0de;font-size: large" class="bu1">-</button>
+                   <input class="number1" type="text" style="width: 40px;height: 30px;background-color: #FFEEC2" value="{{ row.number }}">
+
+                   <button style="width: 20px;;background-color: #FFEEC2;color: #5bc0de;font-size: large" class="bu2">+</button>
+          </p>
+             <form action="/shopping-car/" method="post">
+           <div> <input style="display:none;" name="id_1" class="wu_id" value="{{row.id}}">
+               <input type="submit" style="color: #5bc0de;background-color: #FFEEC2;margin-top: 30px;height: 40px;font-size: large;width: 60px;" class="remove_car" value="×">
+        </div>
+               </form>
+
+         </div></div></center>
+
+
+       <div class="middle-01"><p id="d_1"> <label class="active" >商品名称：</label> {{ row.goods.shangpinmingchen }}</p>
+
+           <p>
+               <label  class="active">商品价格：</label>{{ row.goods.shangpinjiage }} </p>
+               <p>
+               <label  class="active">商品简介：</label>{{ row.goods.shangpinshuoming }}</p>
+           <p><label  class="active">上映时间：</label>{{row.goods.pub_date|date:'Y-m-d H:i:s'}}</p>
+          <p> <label  class="active">卖家联系电话：</label>{{ row.goods.lianxidianhua }}</p>
+       </div>
+   </div>
+
+
+
+
+    {% endfor %}
+    <div style="margin-top: 20px;margin-left: 1000px;">
+    {% if obj %}
+        <input style="display: none" value="{{ obj.first.user_id }}" name="u_id" class="u_id">
+    <button class="buy2 active" style="background-color: #FFEEC2;font-size: 25px;">购买</button>
+    <button class="clean active" style="background-color: #FFEEC2;font-size: 25px; margin-left: 130px;">清空购物车</button>
+   {% else %}
+    {% endif %}
+    </div>
+{%endblock%}
+{% block script %}
+<script>
+
+    function isInteger(obj) {
+        return typeof obj === 'number' && obj%1 === 0;
+
+    }
+
+$('.bu1').click(function () {
+       if (Number($(this).next().val()) > 1 && isInteger(Number($(this).next().val()))) {
+            var nu1=Number($(this).next().val())-1;
+            $(this).next().val(nu1);
+        }
+        else{
+            $(this).next().val('1');
+        }
+
+
+    });
+    $('.bu2').click(function () {
+        if (Number($(this).prev().val()) >= 1 && isInteger(Number($(this).prev().val()))) {
+            var nu2=Number($(this).prev().val())+1;
+            $(this).prev().val(nu2);
+        }
+        else{
+            $(this).prev().val('1');
+        }
+
+    });
+    $('.clean').click(function () {
+ $.ajax({
+       url:'/clean/',
+       data:{'id':$('.u_id').text()},
+       type:'POST',
+       dataType:'JSON',
+       success:function (obj) {
+
+                      if (obj.status)
+                     {
+                         alert('已清空！！！');
+                         location.reload();
+                     }
+                     else {
+
+                          alert('请先登录！！！！');
+                     }
+
+
+                 }
+             })
+
+
+});
+$('.buy2').click(function () {
+
+
+     $.ajax({
+       url:'/order/',
+       data:{'id':$('.u_id').val()},
+       type:'POST',
+       dataType:'JSON',
+       success:function (obj) {
+
+                      if (obj.status)
+                     {
+                         alert('付款成功！！！');
+                         location.reload();
+                     }
+                     else {
+
+                          alert(obj.error);
+                     }
+
+
+                 }
+             })
+})
+
+</script>
+
+{% endblock %}

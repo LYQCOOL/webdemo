@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block style %}
+.active{
+
+
+    color: #5bc0de
+    }
+
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+        <div class="col-sm-4">
+            <object type="application/x-shockwave-flash" style="outline:none;"
+                    data="http://cdn.abowman.com/widgets/hamster/hamster.swf?up_bodyColor=f0e9cc&amp;up_feetColor=D4C898&amp;up_eyeColor=000567&amp;up_wheelSpokeColor=DEDEDE&amp;up_wheelColor=FFFFFF&amp;up_waterColor=E0EFFF&amp;up_earColor=b0c4de&amp;up_wheelOuterColor=FF4D4D&amp;up_snoutColor=F7F4E9&amp;up_bgColor=F0E4E4&amp;up_foodColor=cba920&amp;up_wheelCenterColor=E4EB2F&amp;up_tailColor=E6DEBE&amp;"
+                    width="200" height="160">
+                <param name="movie"
+                       value="http://cdn.abowman.com/widgets/hamster/hamster.swf?up_bodyColor=f0e9cc&amp;up_feetColor=D4C898&amp;up_eyeColor=000567&amp;up_wheelSpokeColor=DEDEDE&amp;up_wheelColor=FFFFFF&amp;up_waterColor=E0EFFF&amp;up_earColor=b0c4de&amp;up_wheelOuterColor=FF4D4D&amp;up_snoutColor=F7F4E9&amp;up_bgColor=F0E4E4&amp;up_foodColor=cba920&amp;up_wheelCenterColor=E4EB2E&amp;up_tailColor=E6DEBE&amp;">
+                <param name="AllowScriptAccess" value="always">
+                <param name="wmode" value="opaque">
+            </object>
+        </div>
+
+            <div class="col-lg-offset-10">
+            <object type="application/x-shockwave-flash" style="outline:none;"
+                    data="http://cdn.abowman.com/widgets/hamster/hamster.swf?up_bodyColor=000000&amp;up_feetColor=D4B898&amp;up_eyeColor=FFFFFF&amp;up_wheelSpokeColor=000000&amp;up_wheelColor=FFFFFF&amp;up_waterColor=66CDAA&amp;up_earColor=FFFFFF&amp;up_wheelOuterColor=000000&amp;up_snoutColor=FFFFFF&amp;up_bgColor=F5DEB3&amp;up_foodColor=000000&amp;up_wheelCenterColor=000000&amp;up_tailColor=FFFFFF&amp;"
+                    width="200" height="160">
+                <param name="movie"
+                       value="http://cdn.abowman.com/widgets/hamster/hamster.swf?up_bodyColor=f0e9cc&amp;up_feetColor=D4C898&amp;up_eyeColor=000567&amp;up_wheelSpokeColor=DEDEDE&amp;up_wheelColor=FFFFFF&amp;up_waterColor=E0EFFF&amp;up_earColor=b0c4de&amp;up_wheelOuterColor=FF4D4D&amp;up_snoutColor=F7F4E9&amp;up_bgColor=F0E4E4&amp;up_foodColor=cba920&amp;up_wheelCenterColor=E4EB2E&amp;up_tailColor=E6DEBE&amp;">
+                <param name="AllowScriptAccess" value="always">
+                <param name="wmode" value="opaque">
+            </object>
+            </div></div>
+    <center class="active">
+    <h1 class="active" style="font-size: 60px;">信息管理：</h1>
+        <div>
+                   <button class="infs" style="font-size: 20px;background-color: #d43f3a;color: #5bc0de;">基本信息</button>
+                    <button class="pwd" style="font-size: 20px;background-color: #FFEEC2;color: #5bc0de;">密码管理</button>
+
+
+        </div>
+        <form action="/information/" method="post" class="inf">
+        <div>          <input type="text" style="display: none" name="u-id" value="{{ obj.id }}">
+</div>
+        <div>
+
+        <label style="margin-left: -120px;">用户名：</label>
+    </div>
+    <div>
+
+        <input type="text" name="u-name" value="{{ obj.username }}">
+    </div>
+
+    <div>
+
+        <label style="margin-left: -130px;">姓名：</label>
+    </div>
+    <div>
+
+        <input type="text" name="r-name" value="{{ obj.realname }}">
+    </div>
+            <div>{{ error }}</div>
+    <div>
+        <input class="change" type="submit" style="background-color: #FFEEC2;color: #5bc0de; margin-top: 20px; " value="确认修改">
+
+    </div>
+              </form>
+    </center>
+
+
+
+
+
+
+{% endblock %}
+{% block script %}
+    <script>
+$('.infs').click(function(){
+    location.href='/information/'
+    });
+    $('.pwd').click(function(){
+    location.href='/pwd/'
+    })
+
+</script>
+{% endblock %}

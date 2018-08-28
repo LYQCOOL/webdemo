@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% block style %}
+    .active{
+    color:#5bc0de;
+    font-size:20px;}
+     .left-01 {
+           float: left;
+           background-color: red;
+           width: 200px;
+           height: 200px;
+       }
+       .right-01 {
+           float: right;
+           background-color: wheat;
+           width: 200px;
+           height: 200px;
+       }
+       .middle-01 {
+           margin: 20px 200px 0 150px;
+           background-color: #fff9ca;
+           height: 200px;
+       }
+.buy-model{
+        position: fixed;
+        height: 300px;
+        width: 400px;
+        top: 100px;
+        left:50%;
+        z-index: 101;
+        border: 1px solid coral;
+        background: bisque;
+        margin-left: -200px;}
+    .hide{
+        display: none;
+    }
+{%endblock %}
+
+{% block content %}
+
+    <div>
+          <div class="col-md-2">
+                <object id="honehoneclock" width="160" height="70" align="middle"
+                        codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
+                        classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+                    <param value="always" name="allowScriptAccess">
+                    <param value="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.swf"
+                           name="movie">
+                    <param value="high" name="quality">
+                    <param value="#ffffff" name="bgcolor">
+                    <param value="transparent" name="wmode">
+                    <embed width="160" height="70" align="middle"
+                           pluginspage="http://www.macromedia.com/go/getflashplayer"
+                           type="application/x-shockwave-flash" allowscriptaccess="always" name="honehoneclock"
+                           bgcolor="#ffffff" quality="high"
+                           src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.swf"
+                           wmode="transparent">
+                </object>
+            </div>
+        <center>
+    <input type="text" style="margin-top: 20px;width: 300px;height:30px;border: double dodgerblue" placeholder="请输入宝贝名"><input style="color: #5bc0de;margin-left: 10px;background-color: #FFEEC2;width: 50px;height: 30px;" class="sousuo" type="button" value="搜索">
+
+
+            </center>
+    </div>
+
+
+
+
+    <div style="margin-top: 20px;margin-left: 500px">
+         <span style="font-size: 20px">筛选</span>
+        &#12288
+
+        <a href="/index-0/">全部</a>
+        &#12288
+         {% for row in style %}
+        <a href="/index-{{row.id}}/">{{ row.name }}</a>
+        &#12288
+        {% endfor %}
+
+    </div>
+    {% for row in goods %}
+    <div>
+       <div class="left-01"> <img class="left-01" src="{{ row.shangpintupian }}"></div>
+        <center>
+       <div class="right-01">
+
+           <div> <p style="display:none;" name="id_1" class="id_1">{{row.id}}</p>
+
+               <p> <button style="width: 20px;;background-color: #FFEEC2;color: #5bc0de;font-size: large" class="bu1">-</button>
+                   <input class="number1" type="text" style="width: 40px;height: 30px;background-color: #FFEEC2" >
+                    <button style="width: 20px;;background-color: #FFEEC2;color: #5bc0de;font-size: large" class="bu2">+</button>
+
+               <button style="color: #5bc0de;background-color: #FFEEC2;margin-top: 15px;height: 40px;font-size: large" class="car">加入购物车</button>
+           </p></div>
+
+           <div style="margin-top: 30px;">
+               <p style="display:none;" name="id_2" class="id_2">{{row.id}}</p>
+               <p>
+                   <button style="width: 20px;;background-color: #FFEEC2;color: #5bc0de;font-size: large" class="bu3">-</button>
+                <input class="number2" type="text" style="width: 40px;height: 30px;background-color: #FFEEC2" >
+                    <button style="width: 20px;;background-color: #FFEEC2;color: #5bc0de;font-size: large" class="bu4">+</button>
+               <button  style="color: #5bc0de;background-color: #FFEEC2;height: 40px;font-size: large" class="buy"> 立即购买</button>
+           </p></div>
+         </div>
+        </center>
+
+       <div class="middle-01"><p id="d_1"> <label class="active" >商品名称：</label> {{ row.shangpinmingchen }}</p>
+
+           <p>
+               <label  class="active">商品价格：</label>{{ row.shangpinjiage }} </p>
+               <p>
+               <label  class="active">商品简介：</label>{{ row.shangpinshuoming }}</p>
+           <p><label  class="active">上映时间：</label>{{row.pub_date|date:'Y-m-d H:i:s'}}</p>
+          <p> <label  class="active">卖家联系电话：</label>{{ row.lianxidianhua }}</p>
+       </div>
+   </div>
+    {% endfor %}
+ <div class="buy-model hide">
+
+        <center style="color: #5bc0de;background-color: #FFEEC2;font-size: 20px;">商品购买</center>
+
+            <div>
+        <label class="active" >商品信息:</label>
+
+        </div>
+            <input class="w_ids" type="text" style="display: none">
+            <div class="didi"></div>
+            <div class="active">数量:</div>
+             <div class="nu"></div>
+
+    <input type="button" class="tijiao" value="购买" style="color: #5bc0de;background-color: #FFEEC2;font-size: 20px;margin-top: 5px;margin-left: 30px">
+    <input id="cancel" type="button" value="取消" style="color: #5bc0de;background-color: #FFEEC2;font-size: 20px;margin-left: 40px;margin-top: 5px;">
+    <span id="error_msg" style="color: red"></span>
+
+        </form>
+    </div>
+
+{% endblock %}
+{% block script %}
+
+    <script>
+    function isInteger(obj) {
+        return typeof obj === 'number' && obj%1 === 0;
+
+    }
+    $('.number1').val('1');
+     $('.number2').val('1');
+
+    $('.bu1').click(function () {
+       if (Number($(this).next().val()) > 1 && isInteger(Number($(this).next().val()))) {
+            var nu1=Number($(this).next().val())-1;
+            $(this).next().val(nu1);
+        }
+        else{
+            $(this).next().val('1');
+        }
+
+
+    });
+    $('.bu2').click(function () {
+        if (Number($(this).prev().val()) >= 1 && isInteger(Number($(this).prev().val()))) {
+            var nu2=Number($(this).prev().val())+1;
+            $(this).prev().val(nu2);
+        }
+        else{
+            $(this).prev().val('1');
+        }
+
+    })
+     $('.bu3').click(function () {
+       if (Number($(this).next().val()) > 1 && isInteger(Number($(this).next().val()))) {
+            var nu1=Number($(this).next().val())-1;
+            $(this).next().val(nu1);
+        }
+        else{
+            $(this).next().val('1');
+        }
+
+
+    });
+    $('.bu4').click(function () {
+        if (Number($(this).prev().val()) >= 1 && isInteger(Number($(this).prev().val()))) {
+            var nu2=Number($(this).prev().val())+1;
+            $(this).prev().val(nu2);
+        }
+        else{
+            $(this).prev().val('1');
+        }
+
+    })
+    </script>
+<script>
+    $('.car').click(function(){
+    $.ajax({
+       url:'/index-0/',
+       data:{'w_id':$(this).parent().prev().text(),'number':$(this).prev().prev().val()},
+       type:'POST',
+       dataType:'JSON',
+       success:function (obj) {
+             console.log('12');
+                      if (obj.status)
+                     {
+                         alert('添加成功！！！');
+                         location.reload();
+                     }
+                     else {
+
+                          alert('请先登录！！！！');
+                     }
+
+
+                 }
+             })
+
+             });
+    $('.buy').click(function(){
+        if (   '{{f}}' == 'None'){
+
+            alert('请先登录！！！');
+        }
+        else {
+            $('.buy-model').removeClass('hide');
+            var name=$(this).parent().parent().parent().parent().next().text();
+            var nu=$(this).prev().prev().val();
+            var e_id=$(this).parent().prev().text();
+            $('.didi').text(name);
+             $('.nu').text(nu);
+             $('.w_ids').val(e_id);
+        }
+             });
+    $('.sousuo').click(function(){
+
+    $.ajax({
+       url:'/sousuo/',
+       data:{'content':$(this).prev().val()},
+       type:'POST',
+       dataType:'JSON',
+       success:function (obj) {
+                      if (obj.status)
+                     {
+                         alert('搜索成功！！！');
+                         var datas=obj.data;
+                         console.log(datas);
+
+         $.ajax({
+        url:'/index-sousuo/',
+        data:{'data':obj.data},
+        type:'POST',
+        dataType:'JSON',
+        success:function (obj) {
+                  location.href='/index-sousuo/';
+
+                 }
+             })
+
+                     }
+                     else {
+
+                          alert(obj.error);
+                     }
+
+
+                 }
+             })
+
+             });
+             $('#cancel').click(function(){
+             $('.buy-model').addClass('hide');
+
+             });
+$('.tijiao').click(function () {
+    $.ajax({
+       url:'/goumai/',
+       data:{'id': $('.w_ids').val(),'nu':$('.nu').text()},
+       type:'POST',
+       dataType:'JSON',
+       success:function (obj) {
+
+                      if (obj.status)
+                     {
+                         alert('付款成功！！！');
+                         location.reload();
+                     }
+                     else {
+
+                          alert(obj.error);
+                     }
+
+
+                 }
+             })
+
+})
+
+
+
+
+</script>
+
+
+{% endblock %}
